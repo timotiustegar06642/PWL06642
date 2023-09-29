@@ -14,9 +14,19 @@ $var = "/^[.a-zA-Z, ]*$/";
 // }
 //kondisi ketika data yang diinput benar
 // else {
-    $sql = "insert into dosen values('$npp','$namadosen','$homebase')";
-    mysqli_query($koneksi, $sql) or die(mysqli_error($koneksi));
-    header("location:updateDosen.php");
+    $q="select * from dosen where npp='".$npp."'";
+    $rs=mysqli_query($koneksi, $q);
+    if(mysqli_num_rows($rs) == 0){
+        $sql = "insert into dosen values('$npp','$namadosen','$homebase')";
+        mysqli_query($koneksi, $sql) or die(mysqli_error($koneksi));
+        header("location:updateDosen.php");
+    } else {
+        echo "<script>
+                alert('NPP yang Diinput Sudah Ada')
+                javascript:history.go(-1)
+        
+            </script>";
+    }
 // }
 
 

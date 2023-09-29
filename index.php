@@ -42,7 +42,7 @@
 		$row=mysqli_fetch_assoc($hasil);
 		if (mysqli_affected_rows($koneksi)>0){
 			$_SESSION['username']=$username;
-			header("location:homeadmin.php");
+			header("location:homeAdmin.php");
 		}else{
 			echo "<div class='alert alert-danger w-25 mx-auto text-center mt-1 alert-dismissible'>
 			<button type='button' class='close' data-dismiss='alert'>&times;</button>
