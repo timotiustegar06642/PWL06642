@@ -52,57 +52,57 @@
 	if (!$jmlData) {
 		$kosong = true;
 	}
-	//data berdasar pencarian atau tidak
-	// if (isset($_POST['cari'])) {
-	// 	$cari = $_POST['cari'];
-	// 	$halAktif = 1;
-	// 	$sql = "select * from dosen where npp like'%$cari%' or
-	// 					namadosen like '%$cari%' or
-	// 					homebase like '%$cari%'
-	// 					limit $awalData,$jmlDataPerHal";
-	// } else {
-	// 	$sql = "select * from dosen limit $awalData,$jmlDataPerHal";
-	// }
-	//Ambil data untuk ditampilkan
+	// data berdasar pencarian atau tidak
+	if (isset($_POST['cari'])) {
+		$cari = $_POST['cari'];
+		$halAktif = 1;
+		$sql = "select * from dosen where npp like'%$cari%' or
+						namadosen like '%$cari%' or
+						homebase like '%$cari%'
+						limit $awalData,$jmlDataPerHal";
+	} else {
+		$sql = "select * from dosen limit $awalData,$jmlDataPerHal";
+	}
+	// Ambil data untuk ditampilkan
 	$hasil = mysqli_query($koneksi, $sql) or die(mysqli_error($koneksi));
 
 	?>
 	<div class="utama">
 		<h2 class="text-center mt-3">Daftar Dosen</h2>
-		<div class="text-center"><a href="prnDosenPdf.php"><span class="fas fa-print">&nbsp;Print</span></a></div>
+		<!-- <div class="text-center"><a href="prnDosenPdf.php"><span class="fas fa-print">&nbsp;Print</span></a></div> -->
 		<span class="float-left">
 			<a class="btn btn-success" href="addDosen.php">Tambah Data</a>
 		</span>
-		<!-- <span class="float-right">
+		<span class="float-right">
 			<form action="" method="post" class="form-inline">
 				<button class="btn btn-success" type="submit">Cari</button>
 				<input class="form-control mr-2 ml-2" type="text" name="cari" placeholder="cari data dosen..." autocomplete="off">
 			</form>
-		</span> -->
+		</span>
 		<br><br>
-		<!-- <ul class="pagination">
+		<ul class="pagination">
 			<?php
 			//navigasi pagination
 			//cetak navigasi back
-			// if ($halAktif > 1) {
-			// 	$back = $halAktif - 1;
-			// 	echo "<li class='page-item'><a class='page-link' href=?hal=$back>&laquo;</a></li>";
-			// }
-			// //cetak angka halaman
-			// for ($i = 1; $i <= $jmlHal; $i++) {
-			// 	if ($i == $halAktif) {
-			// 		echo "<li class='page-item'><a class='page-link' href=?hal=$i style='font-weight:bold;color:red;'>$i</a></li>";
-			// 	} else {
-			// 		echo "<li class='page-item'><a class='page-link' href=?hal=$i>$i</a></li>";
-			// 	}
-			// }
-			// //cetak navigasi forward
-			// if ($halAktif < $jmlHal) {
-			// 	$forward = $halAktif + 1;
-			// 	echo "<li class='page-item'><a class='page-link' href=?hal=$forward>&raquo;</a></li>";
-			// }
+			if ($halAktif > 1) {
+				$back = $halAktif - 1;
+				echo "<li class='page-item'><a class='page-link' href=?hal=$back>&laquo;</a></li>";
+			}
+			//cetak angka halaman
+			for ($i = 1; $i <= $jmlHal; $i++) {
+				if ($i == $halAktif) {
+					echo "<li class='page-item'><a class='page-link' href=?hal=$i style='font-weight:bold;color:red;'>$i</a></li>";
+				} else {
+					echo "<li class='page-item'><a class='page-link' href=?hal=$i>$i</a></li>";
+				}
+			}
+			//cetak navigasi forward
+			if ($halAktif < $jmlHal) {
+				$forward = $halAktif + 1;
+				echo "<li class='page-item'><a class='page-link' href=?hal=$forward>&raquo;</a></li>";
+			}
 			?>
-		</ul> -->
+		</ul>
 		<!-- Cetak data dengan tampilan tabel -->
 		<table class="table table-hover">
 			<thead class="thead-light">
@@ -142,7 +142,7 @@
 							<td><?php echo $row["namadosen"] ?></td>
 							<td style="text-align: center"><?php echo $row["homebase"] ?></td>
 							<td>
-								<a class="btn btn-outline-primary btn-sm" href="editDosen.php?id=<?php echo $row['npp'] ?>">Edit</a>
+								<a class="btn btn-outline-primary btn-sm" href="editDosen.php?kode=<?php echo enkripsiurl($row['npp']) ?>">Edit</a>
 								<a class="btn btn-outline-danger btn-sm" href="hpsDosen.php?kode=<?php echo enkripsiurl($row['npp']) ?>" id="linkHps" onclick="return confirm('Yakin dihapus nih?')">Hapus</a>
 							</td>
 						</tr>
