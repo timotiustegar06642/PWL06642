@@ -115,23 +115,6 @@
 				$forward = $halAktif + 1;
 				echo "<li class='page-item'><a class='page-link' href=?hal=$forward>&raquo;</a></li>";
 			}
-			if ($halAktif > 1) {
-				$back = $halAktif - 1;
-				echo "<li class='page-item'><a class='page-link' href=?hal=$back>&laquo;</a></li>";
-			}
-			//cetak angka halaman
-			for ($i = 1; $i <= $jmlHal; $i++) {
-				if ($i == $halAktif) {
-					echo "<li class='page-item'><a class='page-link' href=?hal=$i style='font-weight:bold;color:red;'>$i</a></li>";
-				} else {
-					echo "<li class='page-item'><a class='page-link' href=?hal=$i>$i</a></li>";
-				}
-			}
-			//cetak navigasi forward
-			if ($halAktif < $jmlHal) {
-				$forward = $halAktif + 1;
-				echo "<li class='page-item'><a class='page-link' href=?hal=$forward>&raquo;</a></li>";
-			}
 			?>
 		</ul>
 		<!-- Cetak data dengan tampilan tabel -->
