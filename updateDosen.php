@@ -58,10 +58,11 @@
 		$halAktif = 1;
 		$sql = "select * from dosen where npp like'%$cari%' or
 						namadosen like '%$cari%' or
-						homebase like '%$cari%'
-						limit $awalData,$jmlDataPerHal";
+						homebase like '%$cari%'";
+		// limit $awalData,$jmlDataPerHal";
 	} else {
-		$sql = "select * from dosen limit $awalData,$jmlDataPerHal";
+		$sql = "select * from dosen";
+		//  limit $awalData,$jmlDataPerHal";
 	}
 	// Ambil data untuk ditampilkan
 	// data berdasar pencarian atau tidak
@@ -70,10 +71,11 @@
 		$halAktif = 1;
 		$sql = "select * from dosen where npp like'%$cari%' or
 						namadosen like '%$cari%' or
-						homebase like '%$cari%'
-						limit $awalData,$jmlDataPerHal";
+						homebase like '%$cari%'";
+		// limit $awalData,$jmlDataPerHal";
 	} else {
-		$sql = "select * from dosen limit $awalData,$jmlDataPerHal";
+		$sql = "select * from dosen";
+		//  limit $awalData,$jmlDataPerHal";
 	}
 	// Ambil data untuk ditampilkan
 	$hasil = mysqli_query($koneksi, $sql) or die(mysqli_error($koneksi));
@@ -94,29 +96,29 @@
 		</span>
 		</span>
 		<br><br>
-		<ul class="pagination">
+		<!-- <ul class="pagination">
 			<?php
 			//navigasi pagination
 			//cetak navigasi back
-			if ($halAktif > 1) {
-				$back = $halAktif - 1;
-				echo "<li class='page-item'><a class='page-link' href=?hal=$back>&laquo;</a></li>";
-			}
-			//cetak angka halaman
-			for ($i = 1; $i <= $jmlHal; $i++) {
-				if ($i == $halAktif) {
-					echo "<li class='page-item'><a class='page-link' href=?hal=$i style='font-weight:bold;color:red;'>$i</a></li>";
-				} else {
-					echo "<li class='page-item'><a class='page-link' href=?hal=$i>$i</a></li>";
-				}
-			}
-			//cetak navigasi forward
-			if ($halAktif < $jmlHal) {
-				$forward = $halAktif + 1;
-				echo "<li class='page-item'><a class='page-link' href=?hal=$forward>&raquo;</a></li>";
-			}
+			// if ($halAktif > 1) {
+			// 	$back = $halAktif - 1;
+			// 	echo "<li class='page-item'><a class='page-link' href=?hal=$back>&laquo;</a></li>";
+			// }
+			// //cetak angka halaman
+			// for ($i = 1; $i <= $jmlHal; $i++) {
+			// 	if ($i == $halAktif) {
+			// 		echo "<li class='page-item'><a class='page-link' href=?hal=$i style='font-weight:bold;color:red;'>$i</a></li>";
+			// 	} else {
+			// 		echo "<li class='page-item'><a class='page-link' href=?hal=$i>$i</a></li>";
+			// 	}
+			// }
+			// //cetak navigasi forward
+			// if ($halAktif < $jmlHal) {
+			// 	$forward = $halAktif + 1;
+			// 	echo "<li class='page-item'><a class='page-link' href=?hal=$forward>&raquo;</a></li>";
+			// }
 			?>
-		</ul>
+		</ul> -->
 		<!-- Cetak data dengan tampilan tabel -->
 		<table class="table table-hover">
 			<thead class="thead-light">
