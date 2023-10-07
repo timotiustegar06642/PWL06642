@@ -18,12 +18,12 @@
 	$npp = dekripsiurl($_GET["kode"]);
 	$sql = "select * from dosen where npp='$npp'";
 	$qry = mysqli_query($koneksi, $sql);
-	if(mysqli_num_rows($qry) == 0){
+	if (mysqli_num_rows($qry) == 0) {
 		echo "<script>
                 alert('NPP Tidak Ditemukan')
                 javascript:history.go(-1)
             </script>";
-			exit();
+		exit();
 	}
 	$row = mysqli_fetch_assoc($qry);
 	?>
@@ -34,9 +34,7 @@
 				<form method="post" action="sv_editDosen.php" autocomplete="off">
 					<div class="form-group">
 						<label for="npp">NPP:</label>
-						<div style="display: flex;">
-							<input readonly class="form-control" type="text" name="npp" id="npp" value=<?php echo $row['npp']; ?> required style="width: 300px; background-color: #fff">
-						</div>
+						<input readonly class="form-control" type="text" name="npp" id="npp" value=<?php echo $row['npp']; ?> required style="width: 300px; background-color: #fff">
 					</div>
 					<div class="form-group">
 						<label for="namadosen">Nama Dosen:</label>
