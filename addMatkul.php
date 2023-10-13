@@ -54,6 +54,7 @@
 							<option value="2">2</option>
 							<option value="3">3</option>
 							<option value="4">4</option>
+							<option value="6">6</option>
 						</select>
 					</div>
 					<div class="form-group col-sm">
@@ -79,7 +80,7 @@
 					</div>
 				</div>
 				<div>
-					<button type="submit" class="btn btn-primary" value="Simpan">Simpan</button>
+					<button type="submit" class="btn btn-success" value="Simpan">Simpan</button>
 				</div>
 			</div>
 		</form>

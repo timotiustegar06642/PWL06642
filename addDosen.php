@@ -51,7 +51,7 @@
 				</select>
 			</div>
 			<div>
-				<button type="submit" class="btn btn-primary" value="Simpan">Simpan</button>
+				<button type="submit" class="btn btn-success" value="Simpan">Simpan</button>
 			</div>
 		</form>
 	</div>

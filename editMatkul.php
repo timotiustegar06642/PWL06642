@@ -51,6 +51,7 @@
 							<option <?= $row['sks'] == "2" ? ' selected="selected"' : ''; ?> value="2">2</option>
 							<option <?= $row['sks'] == "3" ? ' selected="selected"' : ''; ?> value="3">3</option>
 							<option <?= $row['sks'] == "4" ? ' selected="selected"' : ''; ?> value="4">4</option>
+							<option <?= $row['sks'] == "6" ? ' selected="selected"' : ''; ?> value="6">6</option>
 						</select>
 					</div>
 					<div class="form-group col-sm">
@@ -76,7 +77,7 @@
 					</div>
 				</div>
 				<div>
-					<button type="submit" class="btn btn-primary" value="Simpan">Simpan</button>
+					<button type="submit" class="btn btn-success" value="Simpan">Simpan</button>
 				</div>
 			</div>
 		</form>
