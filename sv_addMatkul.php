@@ -21,7 +21,7 @@ else {
     $q = "select * from matkul where idmatkul='" . $idmatkul . "'";
     $rs = mysqli_query($koneksi, $q);
     if (mysqli_num_rows($rs) == 0) {
-        $sql = "insert into matkul values('$idmatkul','$namamatkul', '$sks','$jenis','$semester')";
+        $sql = "insert into matkul values('', '$idmatkul','$namamatkul', '$sks','$jenis','$semester')";
         mysqli_query($koneksi, $sql) or die(mysqli_error($koneksi));
         header("location:updateMatkul.php");
     } else {

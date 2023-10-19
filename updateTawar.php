@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>Sistem Informasi Akademik::Daftar Mata Kuliah</title>
+	<title>Sistem Informasi Akademik::Daftar Penawaran Mata Kuliah</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="bootstrap4/css/bootstrap.css">
@@ -27,20 +27,20 @@
 	//jumlah data per halaman
 	$cari = isset($_POST['cari']) ? $_POST['cari'] : null;
 	//ambil data untuk cari jumlah data
-	$hasil = cari("matkul", "idmatkul like'%$cari%' or namamatkul like '%$cari%' or sks like '%$cari%' or jns like '%$cari%' or smt like '%$cari%'", 0, $cari);
+	$hasil = cari("kultawar", "idkultawar like'%$cari%' or idmatkul like '%$cari%' or idmatkul like '%$cari%' or npp like '%$cari%' or klp like '%$cari%' or hari like '%$cari%' or jamkul like '%$cari%' or ruang like '%$cari%'", 0, $cari);
 
 	//pagination
 	pagination($hasil, $max);
 
 	// Ambil data untuk ditampilkan
-	$hasil = cari("matkul", "idmatkul like'%$cari%' or namamatkul like '%$cari%' or sks like '%$cari%' or jns like '%$cari%' or smt like '%$cari%'", 1, $cari);
+	$hasil = cari("kultawar", "idkultawar like'%$cari%' or idmatkul like '%$cari%' or idmatkul like '%$cari%' or npp like '%$cari%' or klp like '%$cari%' or hari like '%$cari%' or jamkul like '%$cari%' or ruang like '%$cari%'", 1, $cari);
 	?>
 	<div class="utama">
 		<h2 class="text-center mt-3">Daftar Mata Kuliah</h2>
 		<!-- <div class="text-center"><a href="prnDosenPdf.php"><span class="fas fa-print">&nbsp;Print</span></a></div> -->
 		<!-- <div class="text-center"><a href="prnDosenPdf.php"><span class="fas fa-print">&nbsp;Print</span></a></div> -->
 		<span class="float-left">
-			<a class="btn btn-success" href="addMatkul.php">Tambah Data</a>
+			<a class="btn btn-success" href="addTawar.php">Tambah Data</a>
 		</span>
 		<span class="float-right">
 			<form action="" method="post" class="form-inline">
@@ -78,11 +78,12 @@
 			<thead class="thead-light">
 				<tr>
 					<th>No.</th>
-					<th>ID</th>
 					<th>Nama Mata Kuliah</th>
-					<th style="text-align: center">SKS</th>
-					<th style="text-align: center">Jenis</th>
-					<th style="text-align: center">Semester</th>
+					<th>Nama Dosen</th>
+					<th style="text-align: center">Kelompok</th>
+					<th style="text-align: center">Hari</th>
+					<th style="text-align: center">Jam</th>
+					<th style="text-align: center">Ruang</th>
 					<th>Aksi</th>
 				</tr>
 			</thead>
@@ -106,11 +107,16 @@
 					?>
 						<tr>
 							<td><?php echo $no ?></td>
-							<td><?php echo $row["idmatkul"] ?></td>
-							<td><?php echo $row["namamatkul"] ?></td>
-							<td style="text-align: center"><?php echo $row["sks"] ?></td>
-							<td style="text-align: center"><?php echo $row["jns"] ?></td>
-							<td style="text-align: center"><?php echo $row["smt"] ?></td>
+							<td>
+								<?php echo select("namamatkul", "matkul", "idmatkul", 1, $row['idmatkul']) ?>
+							</td>
+							<td>
+								<?php echo select("namadosen", "dosen", "npp", 1, $row['npp']) ?>
+							</td>
+							<td style="text-align: center"><?php echo $row["klp"] ?></td>
+							<td style="text-align: center"><?php echo $row["hari"] ?></td>
+							<td style="text-align: center"><?php echo $row["jamkul"] ?></td>
+							<td style="text-align: center"><?php echo $row["ruang"] ?></td>
 							<td>
 								<a class="btn btn-outline-primary btn-sm" href="editMatkul.php?kode=<?php echo enkripsiurl($row['idmatkul']) ?>">Edit</a>
 								<a class="btn btn-outline-danger btn-sm" href="hpsMatkul.php?kode=<?php echo enkripsiurl($row['idmatkul']) ?>" id="linkHps" onclick="return confirm('Yakin dihapus nih?')">Hapus</a>
