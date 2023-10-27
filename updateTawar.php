@@ -36,7 +36,7 @@
 	$hasil = cari("kultawar", "idkultawar like'%$cari%' or idmatkul like '%$cari%' or idmatkul like '%$cari%' or npp like '%$cari%' or klp like '%$cari%' or hari like '%$cari%' or jamkul like '%$cari%' or ruang like '%$cari%'", 1, $cari);
 	?>
 	<div class="utama">
-		<h2 class="text-center mt-3">Daftar Penawaran Mata test</h2>
+		<h2 class="text-center mt-3">Daftar Penawaran Mata Kuliah</h2>
 		<!-- <div class="text-center"><a href="prnDosenPdf.php"><span class="fas fa-print">&nbsp;Print</span></a></div> -->
 		<!-- <div class="text-center"><a href="prnDosenPdf.php"><span class="fas fa-print">&nbsp;Print</span></a></div> -->
 		<span class="float-left">
@@ -81,8 +81,8 @@
 					<th>Nama Mata Kuliah</th>
 					<th>Nama Dosen</th>
 					<th style="text-align: center">Kelompok</th>
-					<th style="text-align: center">Hari</th>
-					<th style="text-align: center">Jam</th>
+					<th style="text-align: center">Jadwal Hari</th>
+					<th style="text-align: center">Jadwal Jam</th>
 					<th style="text-align: center">Ruang</th>
 					<th>Aksi</th>
 				</tr>

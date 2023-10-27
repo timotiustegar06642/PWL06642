@@ -48,14 +48,8 @@
 					<div class="form-group mb-3 col-12">
 						<label for="npp">Dosen:</label>
 						<div id="dosenGroup">
-							<select class="form-select px-2 mr-3" name="npp" style="height: 40px;width: 100%; border :1px solid #ced4da;border-radius: 0.25rem;" required>
+							<select id="dosen" class="form-select px-2 mr-3" name="npp" style="height: 40px;width: 100%; border :1px solid #ced4da;border-radius: 0.25rem;" required>
 								<option value='' disabled selected>Pilih Dosen</option>
-								<?php
-								$hasil = cari("dosen", "", 0);
-								while ($row = mysqli_fetch_assoc($hasil)) {
-								?>
-									<option value=<?= $row["npp"]; ?>><?= $row["namadosen"] ?></option>
-								<?php } ?>
 							</select>
 						</div>
 					</div>
@@ -107,12 +101,24 @@
 </body>
 <script>
 	$(document).ready(function() {
-		$('#matkulSelect').on("change", function() {
-			$('#dosenGroup').load('ajax/dosenSelect.php?id=' + $('#matkulSelect').val())
-			$('#klpGroup').load('ajax/klpSelect.php?id=' + $('#matkulSelect').val())
-			$('#jamGroup').load('ajax/jamSelect.php?id=' + $('#matkulSelect').val())
+		$('#matkulSelect').change(function() {
+			var mk = $(this).val();
+			$.post("ajax/ajaxTawar.php", {
+				id: mk
+			}, function(data) {
+				if (data != "") {
+					$("#dosen").html(data);
+				}
+			})
 		})
 	})
+	// $(document).ready(function() {
+	// 	$('#matkulSelect').on("change", function() {
+	// 		$('#dosenGroup').load('ajax/dosenSelect.php?id=' + $('#matkulSelect').val())
+	// 		$('#klpGroup').load('ajax/klpSelect.php?id=' + $('#matkulSelect').val())
+	// 		$('#jamGroup').load('ajax/jamSelect.php?id=' + $('#matkulSelect').val())
+	// 	})
+	// })
 </script>
 
 </html>
