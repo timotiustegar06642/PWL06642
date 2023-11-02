@@ -21,40 +21,57 @@
 		<div class="alert alert-success alert-dismissible" id="success" style="display:none;">
 			<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
 		</div>
-		<form method="post" action="sv_addTawar.php" autocomplete="off">
+		<form method="post" action="sv_addKrs.php" autocomplete="off">
 			<div class="container p-0">
 				<div class="row">
-					<div class="form-group mb-3 col-6">
-						<label for="npp">Mata Kuliah:</label>
-						<select class="form-select px-2 mr-3" id="matkulSelect" name="idMatkul" style="height: 40px;width: 100% ; border :1px solid #ced4da;border-radius: 0.25rem;" required>
-							<option value='' disabled selected>Pilih Mata Kuliah</option>
+					<div class="form-group mb-3 col-12">
+						<label for="npp">Mahasiswa:</label>
+						<select class="form-select px-2 mr-3" id="mhs" name="nim" style="height: 40px;width: 100% ; border :1px solid #ced4da;border-radius: 0.25rem;" required>
+							<option value='' disabled selected>Pilih Mahasiswa</option>
 							<?php
-							$hasil = cari("matkul", "", 0);
+							$hasil = cari("mhs", "", 0);
 							while ($row = mysqli_fetch_assoc($hasil)) {
 							?>
-								<option value=<?= $row["idmatkul"]; ?>><?= $row["namamatkul"] ?></option>
+								<option value=<?= $row["nim"]; ?>><?= $row["nama"] ?></option>
 							<?php } ?>
 						</select>
 					</div>
-					<div class="form-group mb-3 col-6">
-						<label for="npp">Kelompok:</label>
-						<div class="d-flex justify-content-between" id="klpGroup">
-							<input class=" form-control" type="text" name="klp" id="klp" style="width:100%" required>
-						</div>
-					</div>
 				</div>
 				<div class="row">
-					<div class="form-group mb-3 col-12">
+					<div class="form-group mb-3 col-6">
+						<label for="npp">Mata Kuliah:</label>
+						<div id="dosenGroup">
+							<select id="matkul" class="form-select px-2 mr-3" name="idMatkul" style="height: 40px;width: 100%; border :1px solid #ced4da;border-radius: 0.25rem;" required>
+								<option value='' disabled selected>Pilih Mata Kuliah</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group mb-3 col-6">
 						<label for="npp">Dosen:</label>
 						<div id="dosenGroup">
-							<select id="dosen" class="form-select px-2 mr-3" name="npp" style="height: 40px;width: 100%; border :1px solid #ced4da;border-radius: 0.25rem;" required>
+							<select id="dosen" class="form-select px-2 mr-3" name="nppDos" style="height: 40px;width: 100%; border :1px solid #ced4da;border-radius: 0.25rem;" required>
 								<option value='' disabled selected>Pilih Dosen</option>
 							</select>
 						</div>
 					</div>
 				</div>
-				<div class="row mb-3">
-					<div class="form-group col-sm">
+				<div class="row">
+					<div class="form-group mb-3 col-3">
+						<label for="npp">Tahun Akademik:</label>
+						<input type="text" class="form-control" name="thAkd" required>
+					</div>
+					<div class="form-group col-3">
+						<label for="sks" class="form-label d-block">Nilai:</label>
+						<select class="form-select px-2 w-100" name="nilai" style="height: 40px; width: 100%;border :1px solid #ced4da;border-radius: 0.25rem;" required>
+							<option value='' disabled selected>Pilih Nilai</option>
+							<option value="A">A</option>
+							<option value="B">B</option>
+							<option value="C">C</option>
+							<option value="D">D</option>
+							<option value="E">E</option>
+						</select>
+					</div>
+					<div class="form-group col-sm-3">
 						<label for="sks" class="form-label d-block">Hari:</label>
 						<select class="form-select px-2 w-100" name="hari" style="height: 40px; width: 100%;border :1px solid #ced4da;border-radius: 0.25rem;" required>
 							<option value='' disabled selected>Pilih Hari</option>
@@ -65,9 +82,9 @@
 							<option value="Jumat">Jumat</option>
 						</select>
 					</div>
-					<div class="form-group col-sm" id="jamGroup">
+					<div class="form-group col-sm-3">
 						<label for="jenis" class="form-label d-block">Jam Kuliah:</label>
-						<select class="form-select px-2 w-100" name="jamkul" style="height: 40px; width: 100%;border :1px solid #ced4da;border-radius: 0.25rem;" required>
+						<select class="form-select px-2 w-100" name="waktu" style="height: 40px; width: 100%;border :1px solid #ced4da;border-radius: 0.25rem;" required>
 							<option value='' disabled selected>Pilih Jam</option>
 							<option value="07.00-08.40">07.00-08.40</option>
 							<option value="08.40-10.20">08.40-10.20</option>
@@ -82,17 +99,6 @@
 							<option value="15.30-18.00">15.30-18.00</option>
 						</select>
 					</div>
-					<div class="form-group col-sm">
-						<label for="semester" class="form-label d-block">Ruang:</label>
-						<div class="d-flex justify-content-between">
-							<select class="form-select px-2 w-100" name="ruang" style="height: 40px; width: 100%;border :1px solid #ced4da;border-radius: 0.25rem;" required>
-								<option value='' disabled selected>Pilih Ruang</option>
-								<option value="H.2.2">H.2.2</option>
-								<option value="H.2.3">H.2.3</option>
-								<option value="H.2.4">H.2.4</option>
-							</select>
-						</div>
-					</div>
 				</div>
 				<div>
 					<button type="submit" class="btn btn-success" value="Simpan">Simpan</button>
@@ -103,13 +109,20 @@
 </body>
 <script>
 	$(document).ready(function() {
-		$('#matkulSelect').change(function() {
+		$('#mhs').change(function() {
 			var mk = $(this).val();
-			$.post("ajax/ajaxTawar.php", {
+			$.post("ajax/ajaxKrsDosen.php", {
 				id: mk
 			}, function(data) {
 				if (data != "") {
 					$("#dosen").html(data);
+				}
+			})
+			$.post("ajax/ajaxKrsMatkul.php", {
+				id: mk
+			}, function(data) {
+				if (data != "") {
+					$("#matkul").html(data);
 				}
 			})
 		})
