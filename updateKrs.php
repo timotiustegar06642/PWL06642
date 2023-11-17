@@ -27,17 +27,17 @@
 	//jumlah data per halaman
 	$cari = isset($_POST['cari']) ? $_POST['cari'] : null;
 	//sql data untuk cari jumlah data
-	$sql = "select * from krs a join matkul b on (a.idMatkul=b.idmatkul) join mhs c on (a.nim=c.nim) join dosen d on (a.nppDos=d.npp)";
+	$sql = "select * from tbl_krs a join kultawar b on (a.id_jadwal=b.idkultawar) join matkul c on (b.idmatkul=c.idmatkul) join mhs d on(a.nim=d.nim)";
 	$hasil = mysqli_query($koneksi, $sql) or die(mysqli_error($koneksi));
 	//pagination
 	pagination($hasil, $max);
 
 	// Ambil data untuk ditampilkan
-	$sql = "select * from krs a join matkul b on (a.idMatkul=b.idmatkul) join mhs c on (a.nim=c.nim) join dosen d on (a.nppDos=d.npp)";
+	$sql = "select * from tbl_krs a join kultawar b on (a.id_jadwal=b.idkultawar) join matkul c on (b.idmatkul=c.idmatkul) join mhs d on(a.nim=d.nim)";
 	$hasil = mysqli_query($koneksi, $sql) or die(mysqli_error($koneksi));
 	?>
 	<div class="utama">
-		<h2 class="text-center mt-3">Daftar Penawaran KRS</h2>
+		<h2 class="text-center mt-3">Daftar KRS</h2>
 		<!-- <div class="text-center"><a href="prnDosenPdf.php"><span class="fas fa-print">&nbsp;Print</span></a></div> -->
 		<!-- <div class="text-center"><a href="prnDosenPdf.php"><span class="fas fa-print">&nbsp;Print</span></a></div> -->
 		<span class="float-left">
@@ -79,13 +79,12 @@
 			<thead class="thead-light">
 				<tr>
 					<th>No.</th>
-					<th>Tahun Akd.</th>
 					<th>Nama Mahasiswa</th>
 					<th>Nama Mata Kuliah</th>
-					<th>Nama Dosen</th>
+					<th style="text-align: center">SKS</th>
 					<th style="text-align: center">Jadwal Hari</th>
 					<th style="text-align: center">Jadwal Jam</th>
-					<th style="text-align: center">Nilai</th>
+					<th style="text-align: center">Ruang</th>
 					<th>Aksi</th>
 				</tr>
 			</thead>
@@ -109,16 +108,15 @@
 					?>
 						<tr>
 							<td><?php echo $no ?></td>
-							<td><?php echo $row["thAkd"] ?></td>
 							<td><?php echo $row["nama"] ?></td>
 							<td><?php echo $row["namamatkul"] ?></td>
-							<td><?php echo $row["namadosen"] ?></td>
+							<td style="text-align: center"><?php echo $row["sks"] ?></td>
 							<td style="text-align: center"><?php echo $row["hari"] ?></td>
-							<td style="text-align: center"><?php echo $row["waktu"] ?></td>
-							<td style="text-align: center"><?php echo $row["nilai"] ?></td>
+							<td style="text-align: center"><?php echo $row["jamkul"] ?></td>
+							<td style="text-align: center"><?php echo $row["ruang"] ?></td>
 							<td>
-								<a class="btn btn-outline-primary btn-sm" href="editKrs.php?kode=<?php echo enkripsiurl($row['idKrs']) ?>">Edit</a>
-								<a class="btn btn-outline-danger btn-sm" href="hpsKrs.php?kode=<?php echo enkripsiurl($row['idKrs']) ?>" id="linkHps" onclick="return confirm('Yakin dihapus nih?')">Hapus</a>
+								<a class="btn btn-outline-primary btn-sm" href="editKrs.php?kode=<?php echo enkripsiurl($row['idK']) ?>">Edit</a>
+								<a class="btn btn-outline-danger btn-sm" href="hpsKrs.php?kode=<?php echo enkripsiurl($row['idK']) ?>" id="linkHps" onclick="return confirm('Yakin dihapus nih?')">Hapus</a>
 							</td>
 						</tr>
 				<?php

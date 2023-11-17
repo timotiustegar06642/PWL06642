@@ -16,7 +16,7 @@
 	require "fungsi.php";
 	require "head.html";
 	$idKrs = dekripsiurl($_GET["kode"]);
-	$sql = "select * from krs where idKrs='$idKrs'";
+	$sql = "select * from tbl_krs where idK='$idKrs'";
 	$qry = mysqli_query($koneksi, $sql);
 	if (mysqli_num_rows($qry) == 0) {
 		echo "<script>
@@ -26,6 +26,7 @@
 		exit();
 	}
 	$row = mysqli_fetch_assoc($qry);
+	$idmatkul = select("idmatkul", "kultawar", "idkultawar", 1, $row['id_jadwal']);
 	?>
 	<div class="utama">
 		<h2 class="my-3 text-center">Edit Data KRS</h2>
@@ -33,20 +34,23 @@
 			<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
 		</div>
 		<form method="post" action="sv_editKrs.php" autocomplete="off">
-			<input value=<?= $row["idKrs"] ?> type="hidden" class="form-control" name="idKrs" required>
+			<input value=<?= $row["idK"] ?> type="hidden" class="form-control" name="idK" required>
+			<input id="sks" value=<?= $row["sks"] ?> type="hidden" class="form-control" name="sks" required>
+			<?php
+			?>
 			<div class="container p-0">
 				<div class="row">
 					<div class="form-group mb-3 col-12">
 						<label for="npp">Mahasiswa:</label>
-						<select class="form-select px-2 mr-3" id="mhs" name="nim" style="height: 40px;width: 100% ; border :1px solid #ced4da;border-radius: 0.25rem;" required>
-							<option value='' disabled selected>Pilih Mahasiswa</option>
-							<?php
-							$hasil = cari("mhs", "", 0);
-							while ($rm = mysqli_fetch_assoc($hasil)) {
-							?>
-								<option <?= $row['nim'] == $rm['nim'] ? ' selected="selected"' : ''; ?> value=<?= $rm["nim"]; ?>><?= $rm["nama"] ?></option>
-							<?php } ?>
-						</select>
+						<?php
+						$nama = select("nama", "mhs", "nim", 1, $row['nim']);
+						// $nim = $row['nim'];
+						// $sqln = "select * from mhs where nim='$nim'";
+						// $qn = mysqli_query($koneksi, $sqln);
+						// $rn = mysqli_fetch_assoc($qn)
+						?>
+						<input readonly class="form-control" type="hidden" name="nim" id="nim" value=<?php echo $row["nim"]; ?> required style="background-color: #fff">
+						<input readonly class="form-control" type="text" name="nama" id="nama" value="<?php echo $nama; ?>" required style="background-color: #fff">
 					</div>
 				</div>
 				<div class="row">
@@ -60,72 +64,27 @@
 								$hasil = cari("matkul", "idmatkul like '%$homebase%'", 0, "$homebase");
 								while ($rd = mysqli_fetch_assoc($hasil)) {
 								?>
-									<option <?= $row['idMatkul'] == $rd['idmatkul'] ? ' selected="selected"' : ''; ?> value=<?= $rd["idmatkul"]; ?>><?= $rd["namamatkul"] ?></option>
+									<option <?= $idmatkul == $rd['idmatkul'] ? ' selected="selected"' : ''; ?> value=<?= $rd["idmatkul"]; ?>><?= $rd["namamatkul"] ?></option>
 								<?php } ?>
 							</select>
 						</div>
 					</div>
 					<div class="form-group mb-3 col-6">
-						<label for="npp">Dosen:</label>
+						<label for="npp">Jadwal Kuliah:</label>
 						<div id="dosenGroup">
-							<select id="dosen" class="form-select px-2 mr-3" name="nppDos" style="height: 40px;width: 100%; border :1px solid #ced4da;border-radius: 0.25rem;" required>
-								<option value='' disabled selected>Pilih Dosen</option>
+							<select id="jadwal" class="form-select px-2 mr-3" name="id_jadwal" style="height: 40px;width: 100%; border :1px solid #ced4da;border-radius: 0.25rem;" required>
+								<option value='' disabled selected>Pilih Jadwal Kuliah</option>
 								<?php
-								$hb = explode(".", $row["nim"])[0];
-								$hasil = cari("dosen", "homebase='$hb'", 0, "$hb");
-								while ($rd = mysqli_fetch_assoc($hasil)) {
+								$hasil = cari("kultawar", "idmatkul like '%$idmatkul%'", 0, "$idmatkul");
+								while ($rj = mysqli_fetch_assoc($hasil)) {
 								?>
-									<option <?= $row['nppDos'] == $rd['npp'] ? ' selected="selected"' : ''; ?> value=<?= $rd["npp"]; ?>><?= $rd["namadosen"] ?></option>
+									<option <?= $row["id_jadwal"] == $rj['idkultawar'] ? ' selected="selected"' : ''; ?> value=<?= $rj["idkultawar"]; ?>><?= $rj["hari"] ?> - <?= $rj["jamkul"] ?> - <?= $rj["ruang"] ?></option>
 								<?php } ?>
 							</select>
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="form-group mb-3 col-3">
-						<label for="npp">Tahun Akademik:</label>
-						<input value=<?= $row["thAkd"] ?> type="text" class="form-control" name="thAkd" required>
-					</div>
-					<div class="form-group col-3">
-						<label for="sks" class="form-label d-block">Nilai:</label>
-						<select class="form-select px-2 w-100" name="nilai" style="height: 40px; width: 100%;border :1px solid #ced4da;border-radius: 0.25rem;" required>
-							<option value='' disabled selected>Pilih Nilai</option>
-							<option <?= $row['nilai'] == "A" ? ' selected="selected"' : ''; ?> value="A">A</option>
-							<option <?= $row['nilai'] == "B" ? ' selected="selected"' : ''; ?> value="B">B</option>
-							<option <?= $row['nilai'] == "C" ? ' selected="selected"' : ''; ?> value="C">C</option>
-							<option <?= $row['nilai'] == "D" ? ' selected="selected"' : ''; ?> value="D">D</option>
-							<option <?= $row['nilai'] == "E" ? ' selected="selected"' : ''; ?> value="E">E</option>
-						</select>
-					</div>
-					<div class="form-group col-sm-3">
-						<label for="sks" class="form-label d-block">Hari:</label>
-						<select class="form-select px-2 w-100" name="hari" style="height: 40px; width: 100%;border :1px solid #ced4da;border-radius: 0.25rem;" required>
-							<option value='' disabled selected>Pilih Hari</option>
-							<option <?= $row['hari'] == "Senin" ? ' selected="selected"' : ''; ?> value="Senin">Senin</option>
-							<option <?= $row['hari'] == "Selasa" ? ' selected="selected"' : ''; ?> value="Selasa">Selasa</option>
-							<option <?= $row['hari'] == "Rabu" ? ' selected="selected"' : ''; ?> value="Rabu">Rabu</option>
-							<option <?= $row['hari'] == "Kamis" ? ' selected="selected"' : ''; ?> value="Kamis">Kamis</option>
-							<option <?= $row['hari'] == "Jumat" ? ' selected="selected"' : ''; ?> value="Jumat">Jumat</option>
-						</select>
-					</div>
-					<div class="form-group col-sm-3">
-						<label for="jenis" class="form-label d-block">Jam Kuliah:</label>
-						<select class="form-select px-2 w-100" name="waktu" style="height: 40px; width: 100%;border :1px solid #ced4da;border-radius: 0.25rem;" required>
-							<option value='' disabled selected>Pilih Jam</option>
-							<option <?= $row['waktu'] == "07.00-08.40" ? ' selected="selected"' : ''; ?> value="07.00-08.40">07.00-08.40</option>
-							<option <?= $row['waktu'] == "08.40-10.20" ? ' selected="selected"' : ''; ?> value="08.40-10.20">08.40-10.20</option>
-							<option <?= $row['waktu'] == "10.20-12.00" ? ' selected="selected"' : ''; ?> value="10.20-12.00">10.20-12.00</option>
-							<option <?= $row['waktu'] == "12.30-14.10" ? ' selected="selected"' : ''; ?> value="12.30-14.10">12.30-14.10</option>
-							<option <?= $row['waktu'] == "14.10-16.20" ? ' selected="selected"' : ''; ?> value="14.10-16.20">14.10-16.20</option>
-							<option <?= $row['waktu'] == "16.20-18.00" ? ' selected="selected"' : ''; ?> value="16.20-18.00">16.20-18.00</option>
-							<option <?= $row['waktu'] == "18.30-20.10" ? ' selected="selected"' : ''; ?> value="18.30-20.10">18.30-20.10</option>
-							<option <?= $row['waktu'] == "07.00-19.30" ? ' selected="selected"' : ''; ?> value="07.00-19.30">07.00-09.30</option>
-							<option <?= $row['waktu'] == "09.30-12.00" ? ' selected="selected"' : ''; ?> value="09.30-12.00">09.30-12.00</option>
-							<option <?= $row['waktu'] == "12.30-15.00" ? ' selected="selected"' : ''; ?> value="12.30-15.00">12.30-15.00</option>
-							<option <?= $row['waktu'] == "15.30-18.00" ? ' selected="selected"' : ''; ?> value="15.30-18.00">15.30-18.00</option>
-						</select>
-					</div>
-				</div>
+
 				<div>
 					<button type="submit" class="btn btn-success" value="Simpan">Simpan</button>
 				</div>
@@ -135,24 +94,13 @@
 </body>
 <script>
 	$(document).ready(function() {
-		$('#mhs').change(function() {
-			var mhs = $(this).val();
-			var mk = $("#matkul").val();
-			var dos = $("#dosen").val();
-			$.post("ajax/ajaxEditKrsDosen.php", {
-				id: mhs,
-				npp: dos
+		$('#matkul').change(function() {
+			var mk = $(this).val();
+			$.post("ajax/ajaxKrsJadwal.php", {
+				id: mk
 			}, function(data) {
 				if (data != "") {
-					$("#dosen").html(data);
-				}
-			})
-			$.post("ajax/ajaxEditKrsMatkul.php", {
-				id: mhs,
-				idm: mk
-			}, function(data) {
-				if (data != "") {
-					$("#matkul").html(data);
+					$("#jadwal").html(data);
 				}
 			})
 		})
