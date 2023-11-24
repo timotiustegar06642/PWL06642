@@ -22,7 +22,8 @@
     ?>
     <div class="utama">
         <h2 class="text-center">Input KRS <?= $_GET['nim'] ?></h2>
-        <form action="">
+        <form action="sv_krs.php" method="post">
+            <input type="text" name="nim" value="<?= $_GET['nim'] ?>">    
             <select class="form-select px-2 mr-3" id="matkul" name="idMatkul" style="height: 40px;width: 100% ; border :1px solid #ced4da;border-radius: 0.25rem;" required>
                 <option value='' disabled selected>Pilih Mata Kuliah</option>
                 <?php
@@ -31,8 +32,8 @@
                     <option value=<?= $row["idmatkul"]; ?>><?= $row["namamatkul"] ?></option>
                 <?php } ?>
             </select>
+            <div id="tabelmatkul"></div>
         </form>
-        <div id="tabelmatkul"></div>
     </div>
 </body>
 <script>

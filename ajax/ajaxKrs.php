@@ -11,10 +11,10 @@ if (mysqli_num_rows($hasil) == 0) {
             <tr>
                 <th>ID</th>
                 <th>Nama Mata Kuliah</th>
+                <th>Nama Dosen</th>
                 <th style="text-align: center">SKS</th>
-                <th style="text-align: center">Jenis</th>
-                <th style="text-align: center">Semester</th>
-                <th>Aksi</th>
+                <th style="text-align: center">Jadwal</th>
+                <th style="text-align: center">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -22,14 +22,13 @@ if (mysqli_num_rows($hasil) == 0) {
             while ($row = mysqli_fetch_assoc($hasil)) {
             ?>
                 <tr>
-                    <td><?php echo $row["idmatkul"] ?></td>
-                    <td><?php echo $row["namamatkul"] ?></td>
-                    <td style="text-align: center"><?php echo $row["sks"] ?></td>
-                    <td style="text-align: center"><?php echo $row["jns"] ?></td>
-                    <td style="text-align: center"><?php echo $row["smt"] ?></td>
-                    <td>
-                        <a class="btn btn-outline-primary btn-sm" href="editMatkul.php?kode=<?php echo enkripsiurl($row['idmatkul']) ?>">Edit</a>
-                        <a class="btn btn-outline-danger btn-sm" href="hpsMatkul.php?kode=<?php echo enkripsiurl($row['idmatkul']) ?>" id="linkHps" onclick="return confirm('Yakin dihapus nih?')">Hapus</a>
+                    <td><?php echo $row["idkultawar"] ?></td>
+                    <td><?php echo select("namamatkul", "matkul", "idmatkul", 1, $row['idmatkul']) ?></td>
+                    <td><?php echo select("namadosen", "dosen", "npp", 1, $row['npp']) ?></td>
+                    <td style="text-align: center"><?php echo select("sks", "matkul", "idmatkul", 1, $row['idmatkul']) ?></td>
+                    <td style="text-align: center"><?php echo $row['hari'] ?> - <?php echo $row['jamkul'] ?></td>
+                    <td style="text-align: center">
+                        <input type="radio" name="pilih" value="<?php echo $row['idkultawar'] ?>-<?php echo select('sks', 'matkul', 'idmatkul', 1, $row['idmatkul'])?>" />
                     </td>
                 </tr>
             <?php
@@ -37,6 +36,7 @@ if (mysqli_num_rows($hasil) == 0) {
             ?>
         </tbody>
     </table>
+    <input type="submit" value="Simpan" class="btn btn-primary">
 <?php
 };
 ?>
