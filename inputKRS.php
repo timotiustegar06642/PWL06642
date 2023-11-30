@@ -18,22 +18,31 @@
     require "fungsi.php";
     require "head.html";
     $progdi = substr($_GET['nim'], 0, 3);
+    $sql = "select idmatkul from krs a join kultawar b on (a.id_jadwal=b.idkultawar) where a.nim='" . $_GET['nim'] . "'";
+    $q = mysqli_query($koneksi, $sql);
+    $dipilih = array();
+    while ($row = mysqli_fetch_assoc($q)) {
+        array_push($dipilih, $row["idmatkul"]);
+    }
     $hasil = cari("matkul", "idmatkul like '" . $progdi . "%'", 0, $progdi);
     ?>
     <div class="utama">
-        <h2 class="text-center">Input KRS <?= $_GET['nim'] ?></h2>
-        <form action="sv_krs.php" method="post">
-            <input type="hidden" name="nim" value="<?= $_GET['nim'] ?>">
-            <select class="form-select px-2 mr-3" id="matkul" name="idMatkul" style="height: 40px;width: 100% ; border :1px solid #ced4da;border-radius: 0.25rem;" required>
-                <option value='' disabled selected>Pilih Mata Kuliah</option>
-                <?php
-                while ($row = mysqli_fetch_assoc($hasil)) {
-                ?>
-                    <option value=<?= $row["id"]; ?>><?= $row["namamatkul"] ?></option>
-                <?php } ?>
-            </select>
-            <div id="tabelmatkul"></div>
-        </form>
+        <h2 class="text-center my-3">Input KRS</h2>
+        <div class="p-3 mb-3" style="min-height: 50vh; background-color: #f3f3f3; border-radius: 10px">
+            <form action="sv_krs.php" method="post">
+                <input type="hidden" name="nim" value="<?= $_GET['nim'] ?>">
+                <select class="form-select px-2 mr-3" id="matkul" name="idMatkul" style="height: 40px;width: 100% ; border :1px solid #ced4da;border-radius: 0.25rem;" required>
+                    <option value='' disabled selected>Pilih Mata Kuliah</option>
+                    <?php
+                    while ($row = mysqli_fetch_assoc($hasil)) {
+                    ?>
+                        <option <?php if(in_array($row["id"], $dipilih)) { ?> disabled <?php } ?> value=<?= $row["id"]; ?>><?= $row["namamatkul"] ?></option>
+                    <?php } ?>
+                </select>
+                <div id="tabelmatkul"></div>
+            </form>
+        </div>
+        <h5>KRS Sementara Anda :</h5>
         <table class="table table-hover">
             <thead class="thead-light">
                 <tr>
@@ -47,7 +56,7 @@
             </thead>
             <?php
             $sql2 = "select * from krs a join kultawar b on (a.id_jadwal=b.idkultawar) join matkul c on (c.id=b.idmatkul) join dosen d on (b.npp=d.npp) where a.nim='" . $_GET['nim'] . "'";
-            $hasil2 = mysqli_query($koneksi, $sql2);
+            $hasil2 = mysqli_query($koneksi, $sql2);            
             while ($row = mysqli_fetch_assoc($hasil2)) {
             ?>
                 <tr>

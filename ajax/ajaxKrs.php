@@ -6,9 +6,9 @@ if (mysqli_num_rows($hasil) == 0) {
     echo "Mata kuliah tidak ditawarkan";
 } else {
 ?>
-    <table class="table table-hover">
-        <thead class="thead-light">
-            <tr>
+    <table class="table mt-3">
+        <thead>
+            <tr style="background-color: white">
                 <th>ID</th>
                 <th>Nama Mata Kuliah</th>
                 <th>Nama Dosen</th>
