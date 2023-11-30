@@ -27,13 +27,13 @@
 	//jumlah data per halaman
 	$cari = isset($_POST['cari']) ? $_POST['cari'] : null;
 	//sql data untuk cari jumlah data
-	$sql = "select * from tbl_krs a join kultawar b on (a.id_jadwal=b.idkultawar) join matkul c on (b.idmatkul=c.idmatkul) join mhs d on(a.nim=d.nim)";
+	$sql = "select * from krs a join kultawar b on (a.id_jadwal=b.idkultawar) join matkul c on (b.idmatkul=c.idmatkul) join mhs d on(a.nim=d.nim)";
 	$hasil = mysqli_query($koneksi, $sql) or die(mysqli_error($koneksi));
 	//pagination
 	pagination($hasil, $max);
 
 	// Ambil data untuk ditampilkan
-	$sql = "select * from tbl_krs a join kultawar b on (a.id_jadwal=b.idkultawar) join matkul c on (b.idmatkul=c.idmatkul) join mhs d on(a.nim=d.nim)";
+	$sql = "select * from krs a join kultawar b on (a.id_jadwal=b.idkultawar) join matkul c on (b.idmatkul=c.idmatkul) join mhs d on(a.nim=d.nim)";
 	$hasil = mysqli_query($koneksi, $sql) or die(mysqli_error($koneksi));
 	?>
 	<div class="utama">

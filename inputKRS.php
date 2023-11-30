@@ -23,17 +23,49 @@
     <div class="utama">
         <h2 class="text-center">Input KRS <?= $_GET['nim'] ?></h2>
         <form action="sv_krs.php" method="post">
-            <input type="text" name="nim" value="<?= $_GET['nim'] ?>">    
+            <input type="hidden" name="nim" value="<?= $_GET['nim'] ?>">
             <select class="form-select px-2 mr-3" id="matkul" name="idMatkul" style="height: 40px;width: 100% ; border :1px solid #ced4da;border-radius: 0.25rem;" required>
                 <option value='' disabled selected>Pilih Mata Kuliah</option>
                 <?php
                 while ($row = mysqli_fetch_assoc($hasil)) {
                 ?>
-                    <option value=<?= $row["idmatkul"]; ?>><?= $row["namamatkul"] ?></option>
+                    <option value=<?= $row["id"]; ?>><?= $row["namamatkul"] ?></option>
                 <?php } ?>
             </select>
             <div id="tabelmatkul"></div>
         </form>
+        <table class="table table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Nama Mata Kuliah</th>
+                    <th>Nama Dosen</th>
+                    <th style="text-align: center">SKS</th>
+                    <th style="text-align: center">Jadwal</th>
+                    <th style="text-align: center">Aksi</th>
+                </tr>
+            </thead>
+            <?php
+            $sql2 = "select * from krs a join kultawar b on (a.id_jadwal=b.idkultawar) join matkul c on (c.id=b.idmatkul) join dosen d on (b.npp=d.npp) where a.nim='" . $_GET['nim'] . "'";
+            $hasil2 = mysqli_query($koneksi, $sql2);
+            while ($row = mysqli_fetch_assoc($hasil2)) {
+            ?>
+                <tr>
+                    <td><?php echo $row["idkultawar"] ?></td>
+                    <td><?php echo select("namamatkul", "matkul", "idmatkul", 1, $row['idmatkul']) ?></td>
+                    <td><?php echo select("namadosen", "dosen", "npp", 1, $row['npp']) ?></td>
+                    <td style="text-align: center"><?php echo select("sks", "matkul", "idmatkul", 1, $row['idmatkul']) ?></td>
+                    <td style="text-align: center"><?php echo $row['hari'] ?> - <?php echo $row['jamkul'] ?></td>
+                    <td class="d-flex justify-content-center">
+                        <a href="hpsKrs.php?kode=<?php echo enkripsiurl($row['idKrs']) ?>">
+                            <button class="btn btn-danger" onclick="return confirm('Yakin dihapus nih?')">
+                                Hapus
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+            <?php } ?>
+        </table>
     </div>
 </body>
 <script>

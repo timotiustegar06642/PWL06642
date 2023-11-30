@@ -8,7 +8,7 @@ $idK = $_POST['idK'];
 $nim = $_POST["nim"];
 $id_jadwal = $_POST["id_jadwal"];
 $sks = $_POST["sks"];
-$sql = "update tbl_krs set nim='$nim',
+$sql = "update krs set nim='$nim',
                         id_jadwal='$id_jadwal',
                         sks='$sks'
 					    where idK=$idK";

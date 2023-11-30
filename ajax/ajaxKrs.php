@@ -18,17 +18,17 @@ if (mysqli_num_rows($hasil) == 0) {
             </tr>
         </thead>
         <tbody>
-            <?php
+        <?php
             while ($row = mysqli_fetch_assoc($hasil)) {
             ?>
                 <tr>
                     <td><?php echo $row["idkultawar"] ?></td>
-                    <td><?php echo select("namamatkul", "matkul", "idmatkul", 1, $row['idmatkul']) ?></td>
+                    <td><?php echo select("namamatkul", "matkul", "id", 1, $row['idmatkul']) ?></td>
                     <td><?php echo select("namadosen", "dosen", "npp", 1, $row['npp']) ?></td>
-                    <td style="text-align: center"><?php echo select("sks", "matkul", "idmatkul", 1, $row['idmatkul']) ?></td>
+                    <td style="text-align: center"><?php echo select("sks", "matkul", "id", 1, $row['idmatkul']) ?></td>
                     <td style="text-align: center"><?php echo $row['hari'] ?> - <?php echo $row['jamkul'] ?></td>
                     <td style="text-align: center">
-                        <input type="radio" name="pilih" value="<?php echo $row['idkultawar'] ?>-<?php echo select('sks', 'matkul', 'idmatkul', 1, $row['idmatkul'])?>" />
+                        <input type="radio" name="pilih" value="<?php echo $row['idkultawar'] ?>-<?php echo select('sks', 'matkul', 'id', 1, $row['idmatkul'])?>" />
                     </td>
                 </tr>
             <?php

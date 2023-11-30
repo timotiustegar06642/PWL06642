@@ -4,7 +4,9 @@
 require "fungsi.php";
 
 //memindahkan data kiriman dari form ke var biasa
-$idmatkul = $_POST["idMatkul"];
+
+$postdata = explode(".", $_POST["idMatkul"]);
+$idmatkul = $postdata[2];
 $npp = $_POST["npp"];
 $klp = $_POST["klpStatic"] . "." . $_POST['klp'];
 $hari = $_POST["hari"];

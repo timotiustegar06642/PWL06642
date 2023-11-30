@@ -32,7 +32,7 @@
 							$hasil = cari("matkul", "", 0);
 							while ($row = mysqli_fetch_assoc($hasil)) {
 							?>
-								<option value=<?= $row["idmatkul"]; ?>><?= $row["namamatkul"] ?></option>
+								<option value="<?= $row['idmatkul']; ?>.<?= $row['id']; ?>"><?= $row["namamatkul"] ?></option>
 							<?php } ?>
 						</select>
 					</div>
@@ -45,6 +45,7 @@
 				</div>
 				<div class="row">
 					<div class="form-group mb-3 col-12">
+						<div id=""></div>
 						<label for="npp">Dosen:</label>
 						<div id="dosenGroup">
 							<select id="dosen" class="form-select px-2 mr-3" name="npp" style="height: 40px;width: 100%; border :1px solid #ced4da;border-radius: 0.25rem;" required>
@@ -102,25 +103,25 @@
 	</div>
 </body>
 <script>
-	$(document).ready(function() {
-		$('#matkulSelect').change(function() {
-			var mk = $(this).val();
-			$.post("ajax/ajaxTawar.php", {
-				id: mk
-			}, function(data) {
-				if (data != "") {
-					$("#dosen").html(data);
-				}
-			})
-		})
-	})
 	// $(document).ready(function() {
-	// 	$('#matkulSelect').on("change", function() {
-	// 		$('#dosenGroup').load('ajax/dosenSelect.php?id=' + $('#matkulSelect').val())
-	// 		$('#klpGroup').load('ajax/klpSelect.php?id=' + $('#matkulSelect').val())
-	// 		$('#jamGroup').load('ajax/jamSelect.php?id=' + $('#matkulSelect').val())
+	// 	$('#matkulSelect').change(function() {
+	// 		var mk = $(this).val();
+	// 		$.post("ajax/ajaxTawar.php", {
+	// 			id: mk
+	// 		}, function(data) {
+	// 			if (data != "") {
+	// 				$("#dosen").html(data);
+	// 			}
+	// 		})
 	// 	})
 	// })
+	$(document).ready(function() {
+		$('#matkulSelect').on("change", function() {
+			$('#dosenGroup').load('ajax/dosenSelect.php?id=' + $('#matkulSelect').val())
+			$('#klpGroup').load('ajax/klpSelect.php?id=' + $('#matkulSelect').val())
+			$('#jamGroup').load('ajax/jamSelect.php?id=' + $('#matkulSelect').val())
+		})
+	})
 </script>
 
 </html>

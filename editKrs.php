@@ -16,7 +16,7 @@
 	require "fungsi.php";
 	require "head.html";
 	$idKrs = dekripsiurl($_GET["kode"]);
-	$sql = "select * from tbl_krs where idK='$idKrs'";
+	$sql = "select * from krs where idK='$idKrs'";
 	$qry = mysqli_query($koneksi, $sql);
 	if (mysqli_num_rows($qry) == 0) {
 		echo "<script>

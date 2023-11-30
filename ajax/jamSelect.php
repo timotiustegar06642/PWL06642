@@ -1,7 +1,9 @@
 <?php
 require "../fungsi.php";
 $id = $_GET["id"];
-$hasil = cari("matkul", "idmatkul='$id'", 0, $id);
+$postdata = explode(".", $id);
+$idMatkul = $postdata[0] . "." . $postdata[1];
+$hasil = cari("matkul", "idmatkul='$idMatkul'", 0, $id);
 ?>
 <label for="jenis" class="form-label d-block">Jam Kuliah:</label>
 <select class="form-select px-2 w-100" name="jamkul" style="height: 40px; width: 100%;border :1px solid #ced4da;border-radius: 0.25rem;">

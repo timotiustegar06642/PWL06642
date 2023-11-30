@@ -108,7 +108,7 @@
 						<tr>
 							<td><?php echo $no ?></td>
 							<td>
-								<?php echo select("namamatkul", "matkul", "idmatkul", 1, $row['idmatkul']) ?>
+								<?php echo select("namamatkul", "matkul", "id", 1, $row['idmatkul']) ?>
 							</td>
 							<td>
 								<?php echo select("namadosen", "dosen", "npp", 1, $row['npp']) ?>
