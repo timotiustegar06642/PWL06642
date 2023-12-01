@@ -18,11 +18,13 @@
     require "fungsi.php";
     require "head.html";
     $progdi = substr($_GET['nim'], 0, 3);
-    $sql = "select idmatkul from krs a join kultawar b on (a.id_jadwal=b.idkultawar) where a.nim='" . $_GET['nim'] . "'";
+    $sql = "select idmatkul, sks from krs a join kultawar b on (a.id_jadwal=b.idkultawar) where a.nim='" . $_GET['nim'] . "'";
     $q = mysqli_query($koneksi, $sql);
     $dipilih = array();
+    $sks = 0;
     while ($row = mysqli_fetch_assoc($q)) {
         array_push($dipilih, $row["idmatkul"]);
+        $sks = $sks + $row["sks"];
     }
     $hasil = cari("matkul", "idmatkul like '" . $progdi . "%'", 0, $progdi);
     ?>
@@ -36,13 +38,21 @@
                     <?php
                     while ($row = mysqli_fetch_assoc($hasil)) {
                     ?>
-                        <option <?php if(in_array($row["id"], $dipilih)) { ?> disabled <?php } ?> value=<?= $row["id"]; ?>><?= $row["namamatkul"] ?></option>
+                        <option <?php if (in_array($row["id"], $dipilih)) { ?> disabled <?php } ?> <?php if ($sks >= 24) { ?> disabled <?php } ?> value=<?= $row["id"]; ?>><?= $row["namamatkul"] ?></option>
                     <?php } ?>
                 </select>
                 <div id="tabelmatkul"></div>
             </form>
         </div>
-        <h5>KRS Sementara Anda :</h5>
+        <div class="row">
+            <div class="col-10">
+                <h5>KRS Sementara Anda :</h5>
+            </div>
+            <div class="col-2 d-flex justify-content-end align-items-center">
+                <h6>Total SKS :</h6>
+                <h6><?= $sks ?></h6>
+            </div>
+        </div>
         <table class="table table-hover">
             <thead class="thead-light">
                 <tr>
@@ -56,7 +66,7 @@
             </thead>
             <?php
             $sql2 = "select * from krs a join kultawar b on (a.id_jadwal=b.idkultawar) join matkul c on (c.id=b.idmatkul) join dosen d on (b.npp=d.npp) where a.nim='" . $_GET['nim'] . "'";
-            $hasil2 = mysqli_query($koneksi, $sql2);            
+            $hasil2 = mysqli_query($koneksi, $sql2);
             while ($row = mysqli_fetch_assoc($hasil2)) {
             ?>
                 <tr>
