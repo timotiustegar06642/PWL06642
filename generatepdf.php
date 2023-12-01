@@ -1,3 +1,3 @@
 <?php
-require_once __DIR__ . "/vendor/autoload.php";
-$pdf = new \Dompdf\Dompdf();
+require "fungsi.php";
+generatepdf("A4", "Portrait", "updateMhs.php", "mahasiswa");
