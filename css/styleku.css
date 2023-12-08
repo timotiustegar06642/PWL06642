@@ -58,3 +58,6 @@ body {
   .menusamping {padding-top: 15px;}
   .menusamping a {font-size: 12px;}
 }
+table, th, td {
+  border:1px solid black;
+}
