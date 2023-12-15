@@ -37,4 +37,4 @@ while ($row = mysqli_fetch_assoc($rs)) {
 }
 
 $html .= "</table></body>";
-generatepdf("A4", "Portrait", $html, "krs_" . $npp);
+generatepdf("A4", "Portrait", $html, "krm_" . $npp);
