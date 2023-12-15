@@ -27,13 +27,13 @@
 	//jumlah data per halaman
 	$cari = isset($_POST['cari']) ? $_POST['cari'] : null;
 	//sql data untuk cari jumlah data
-	$sql = "select * from krs a join kultawar b on (a.id_jadwal=b.idkultawar) join matkul c on (b.idmatkul=c.idmatkul) join mhs d on(a.nim=d.nim)";
+	$sql = "select * from krs a join kultawar b on (a.id_jadwal=b.idkultawar) join matkul c on (b.idmatkul=c.id) join mhs d on(a.nim=d.nim)";
 	$hasil = mysqli_query($koneksi, $sql) or die(mysqli_error($koneksi));
 	//pagination
 	pagination($hasil, $max);
 
 	// Ambil data untuk ditampilkan
-	$sql = "select * from krs a join kultawar b on (a.id_jadwal=b.idkultawar) join matkul c on (b.idmatkul=c.idmatkul) join mhs d on(a.nim=d.nim)";
+	$sql = "select * from krs a join kultawar b on (a.id_jadwal=b.idkultawar) join matkul c on (b.idmatkul=c.id) join mhs d on(a.nim=d.nim)";
 	$hasil = mysqli_query($koneksi, $sql) or die(mysqli_error($koneksi));
 	?>
 	<div class="utama">
@@ -115,8 +115,8 @@
 							<td style="text-align: center"><?php echo $row["jamkul"] ?></td>
 							<td style="text-align: center"><?php echo $row["ruang"] ?></td>
 							<td>
-								<a class="btn btn-outline-primary btn-sm" href="editKrs.php?kode=<?php echo enkripsiurl($row['idK']) ?>">Edit</a>
-								<a class="btn btn-outline-danger btn-sm" href="hpsKrs.php?kode=<?php echo enkripsiurl($row['idK']) ?>" id="linkHps" onclick="return confirm('Yakin dihapus nih?')">Hapus</a>
+								<a class="btn btn-outline-primary btn-sm" href="editKrs.php?kode=<?php echo enkripsiurl($row['idKrs']) ?>">Edit</a>
+								<a class="btn btn-outline-danger btn-sm" href="hpsKrs.php?kode=<?php echo enkripsiurl($row['idKrs']) ?>" id="linkHps" onclick="return confirm('Yakin dihapus nih?')">Hapus</a>
 							</td>
 						</tr>
 				<?php

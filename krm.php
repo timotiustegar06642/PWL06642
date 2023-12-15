@@ -9,7 +9,7 @@ $rsdosen = mysqli_fetch_assoc($dosen);
 $html = "<body><div style='width : 100%; text-align: center'><h3>KRM Dosen</h3></div>";
 $html .= "<p>NPP : " . $rsdosen["npp"] . "</p>";
 $html .= "<p>Nama : " . $rsdosen["namadosen"] . "</p>";
-$html .= "<table class='table' style='border-collapse:collapse'>
+$html .= "<table class='table' style='border-collapse:collapse; width : 100%'>
     <thead>
     <tr style='border:1px solid black;'>
         <th style='padding: 5px; border:1px solid black;'>No</th>
@@ -37,4 +37,4 @@ while ($row = mysqli_fetch_assoc($rs)) {
 }
 
 $html .= "</table></body>";
-generatepdf("A4", "Portrait", $html, "krm_" . $npp);
+generatepdf("A4", "Portrait", $html, "krm_" . $rsdosen["namadosen"]);
