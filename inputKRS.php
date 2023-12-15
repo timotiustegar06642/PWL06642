@@ -38,7 +38,7 @@
                     <?php
                     while ($row = mysqli_fetch_assoc($hasil)) {
                     ?>
-                        <option <?php if (in_array($row["id"], $dipilih)) { ?> disabled <?php } ?> <?php if ($sks >= 24) { ?> disabled <?php } ?> value=<?= $row["id"]; ?>><?= $row["namamatkul"] ?></option>
+                        <option <?php if (in_array($row["id"], $dipilih) && $sks >= 24) { ?> disabled <?php } ?> <?php if ($sks >= 24) { ?> disabled <?php } ?> value=<?= $row["id"]; ?>><?= $row["namamatkul"] ?></option>
                     <?php } ?>
                 </select>
                 <div id="tabelmatkul"></div>

@@ -120,6 +120,7 @@
 							<td>
 								<a class="btn btn-outline-primary btn-sm" href="editTawar.php?kode=<?php echo enkripsiurl($row['idkultawar']) ?>">Edit</a>
 								<a class="btn btn-outline-danger btn-sm" href="hpsTawar.php?kode=<?php echo enkripsiurl($row['idkultawar']) ?>" id="linkHps" onclick="return confirm('Yakin dihapus nih?')">Hapus</a>
+								<a class="btn btn-outline-primary btn-sm" href="cetakPdf.php?type=krm&param=<?= $row['npp'] ?>">Cetak KRM</a>
 							</td>
 						</tr>
 				<?php
